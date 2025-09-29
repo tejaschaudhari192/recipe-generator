@@ -1,0 +1,1 @@
+type Ingredients = string[]
