@@ -1,5 +1,7 @@
+import { NextResponse } from "next/server";
+
 export async function GET() {
-    return Response.json({
-        "alive": true
+    return NextResponse.json({
+        alive: true
     })
 }

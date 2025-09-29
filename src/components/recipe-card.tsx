@@ -2,8 +2,9 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
+import type { Recipe } from "@/lib/types";
 
-export default function RecipeCard({ recipe }: { recipe: any }) {
+export default function RecipeCard({ recipe }: { recipe: Recipe }) {
   const [showInstructions, setShowInstructions] = useState(true);
 
   return (
@@ -27,7 +28,7 @@ export default function RecipeCard({ recipe }: { recipe: any }) {
             🧂 Ingredients
           </h3>
           <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
-            {recipe.ingredients.map((ingredient: string, i: number) => (
+            {recipe.ingredients?.map((ingredient: string, i: number) => (
               <li key={i}>{ingredient}</li>
             ))}
           </ul>
@@ -44,7 +45,7 @@ export default function RecipeCard({ recipe }: { recipe: any }) {
             {showInstructions ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
           </div>
 
-          {showInstructions && (
+          {showInstructions && recipe.instructions?.length > 0 && (
             <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
               {recipe.instructions.map((step: string, i: number) => (
                 <li key={i}>{step}</li>

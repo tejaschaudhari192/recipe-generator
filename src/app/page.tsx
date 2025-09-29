@@ -6,30 +6,37 @@ import { Input } from "@/components/ui/input";
 import { getRecipes, getServerStatus } from "@/lib/api";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import type { Recipe } from "@/lib/types";
 
 
 export default function Home() {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [recipes, setRecipes] = useState<any[]>([]);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(false);
 
   async function setIngredients() {
     setLoading(true);
-    const arrayItems = inputRef.current?.value.split(',').map(item => item.trim());
-    if (arrayItems) {
+    const raw = inputRef.current?.value ?? "";
+    const arrayItems = raw.split(',').map(item => item.trim()).filter(Boolean);
+    if (arrayItems.length > 0) {
       try {
         const data = await getRecipes(arrayItems);
-        setRecipes(data);
+        setRecipes(data ?? []);
       } catch {
         toast.error("Failed to fetch recipes");
       }
+    } else {
+      setRecipes([]);
     }
     setLoading(false);
   }
 
   useEffect(() => {
     getServerStatus()
-      .then(() => toast.success("Server Connected!", { position: 'top-right' }))
+      .then((alive) => {
+        if (alive) toast.success("Server Connected!", { position: 'top-right' })
+        else toast.error("Server Not Reachable", { position: 'top-right' })
+      })
       .catch(() => toast.error("Server Not Reachable", { position: 'top-right' }));
   }, []);
 
@@ -93,7 +100,7 @@ export default function Home() {
           ref={inputRef}
           className="flex-grow"
           disabled={loading}
-          onKeyDown={(e) => {
+          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
             if (e.key === 'Enter') setIngredients();
           }}
         />
