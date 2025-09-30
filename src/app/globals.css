@@ -136,3 +136,47 @@
     animation: gradient-xy 15s ease infinite;
   }
 }
+
+@keyframes bounceAlt {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 0.8;
+  }
+}
+
+@keyframes pulseAlt {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes shimmerMove {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.animate-bounce-alt {
+  animation: bounceAlt 1s ease-in-out infinite;
+}
+
+.animate-pulse-alt {
+  animation: pulseAlt 2s ease-in-out infinite;
+}
+
+.shimmer-bar {
+  animation: shimmerMove 1.5s ease-in-out infinite;
+  background-image: linear-gradient(to right, #fb923c, #f472b6, #fb923c);
+  filter: blur(4px);
+  border-radius: 9999px;
+}
