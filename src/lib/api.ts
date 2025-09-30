@@ -3,7 +3,9 @@ import { Ingredients, Recipes } from "./types";
 import { configurations } from "./configuration";
 
 export const apiClient = axios.create({
-    baseURL: '/api',
+    baseURL: typeof window === 'undefined' //differentiate between environments of ssr/csr
+    ? configurations.base_url
+    : '/api',
     withCredentials:true,
     headers: {
         'Content-Type': 'application/json'
@@ -36,6 +38,7 @@ export const getRecipes = async (ingredients: Ingredients): Promise<Recipes> => 
 export const getHomePageContent = async () => {
     try {
         const response = await apiClient.get('/home')
+        console.log('hitting')
         return response.data;
     } catch (error) {
         console.log(error)
