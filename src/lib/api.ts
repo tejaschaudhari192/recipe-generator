@@ -30,3 +30,12 @@ export const getRecipes = async (ingredients: Ingredients): Promise<Recipes> => 
         return [];
     }
 }
+
+export const getHomePageContent = async () => {
+    try {
+        const response = await apiClient.get('/home')
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
