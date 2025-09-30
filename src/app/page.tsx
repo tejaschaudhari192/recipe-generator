@@ -1,9 +1,10 @@
 
 import { Button } from '@/components/ui/button'
 import {
-  Sparkles, ArrowRight, Clock, CheckCircle} from 'lucide-react'
-import { apiClient, getHomePageContent } from '@/lib/api'
-// import HomePageLoader from '@/components/home/HomePageLoader'
+  Sparkles, ArrowRight, Clock, CheckCircle
+} from 'lucide-react'
+import { getHomePageContent } from '@/lib/api'
+import Link from 'next/link'
 
 interface Step {
   number: number
@@ -21,10 +22,7 @@ interface HomePageData {
 
 // server side data fetching
 export default async function Home() {
-  const data:HomePageData = await getHomePageContent();
-
-  // no loader needed
-//   if (!data) return <HomePageLoader />
+  const data: HomePageData = await getHomePageContent();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
@@ -60,12 +58,14 @@ export default async function Home() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in-up delay-500">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white px-8 py-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all"
-            >
-              Start Cooking Now <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+            <Link href={'/chat'}>
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white px-8 py-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all"
+              >
+                Start Cooking Now <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
             <Button
               size="lg"
               variant="outline"
