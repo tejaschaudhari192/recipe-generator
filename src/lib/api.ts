@@ -3,7 +3,8 @@ import { Ingredients, Recipes } from "./types";
 import { configurations } from "./configuration";
 
 export const apiClient = axios.create({
-    baseURL: configurations.base_url,
+    baseURL: '/api',
+    withCredentials:true,
     headers: {
         'Content-Type': 'application/json'
     }
@@ -39,5 +40,27 @@ export const getHomePageContent = async () => {
     } catch (error) {
         console.log(error)
         return null;
+    }
+}
+
+export const signIn = async (email: string, password: string) => {
+    try {
+        const response = await apiClient.post('/auth/signin', {
+            email, password
+        })
+        return response.data;
+    } catch (error) {
+
+    }
+}
+
+export const signUp = async (email: string, password: string) => {
+    try {
+        const response = await apiClient.post('/auth/signup', {
+            email, password
+        })
+        return response.data;
+    } catch (error) {
+
     }
 }
