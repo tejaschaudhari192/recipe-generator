@@ -1,8 +1,9 @@
 import axios from "axios";
 import { Ingredients, Recipes } from "./types";
+import { configurations } from "./configuration";
 
 export const apiClient = axios.create({
-    baseURL: '/api',
+    baseURL: configurations.base_url,
     headers: {
         'Content-Type': 'application/json'
     }
@@ -34,8 +35,9 @@ export const getRecipes = async (ingredients: Ingredients): Promise<Recipes> => 
 export const getHomePageContent = async () => {
     try {
         const response = await apiClient.get('/home')
-        return response.data
+        return response.data;
     } catch (error) {
         console.log(error)
+        return null;
     }
 }
