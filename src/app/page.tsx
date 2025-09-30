@@ -3,9 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
-  Sparkles, ArrowRight, Clock, CheckCircle,
-  Users, Leaf, ShoppingCart, TrendingUp, LucideIcon
-} from 'lucide-react'
+  Sparkles, ArrowRight, Clock, CheckCircle} from 'lucide-react'
 import { getHomePageContent } from '@/lib/api'
 import HomePageLoader from '@/components/home/HomePageLoader'
 import { useRouter } from 'next/navigation'
@@ -24,18 +22,12 @@ interface HomePageData {
   steps: Step[]
 }
 
-const iconMap: Record<string, LucideIcon> = {
-  users: Users,
-  leaf: Leaf,
-  shoppingCart: ShoppingCart,
-  trendingUp: TrendingUp,
-}
-
 export default function Home() {
   const [data, setData] = useState<HomePageData | null>(null)
   const router = useRouter()
 
   useEffect(() => {
+    // this will be loaded on client side, this is same as react app
     const fetchData = async () => {
       const json = await getHomePageContent()
       setData(json)
