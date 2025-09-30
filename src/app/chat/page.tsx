@@ -7,7 +7,6 @@ import { getRecipes, getServerStatus } from "@/lib/api";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import type { Recipe } from "@/lib/types";
-import Image from "next/image";
 
 
 export default function Chat() {
@@ -46,7 +45,7 @@ export default function Chat() {
       <main className="flex-grow max-w-4xl w-full mx-auto p-6 flex flex-col justify-center items-center">
         {loading && (
           <div className="flex flex-col items-center space-y-3 text-gray-700">
-            <Image id="food" src="/anime/food.gif" alt="description" />
+            <img id="food" src="/anime/food.gif" alt="description" />
             <p className="text-xl font-semibold">Cooking up some tasty recipes...</p>
           </div>
         )}
