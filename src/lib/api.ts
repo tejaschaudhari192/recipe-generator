@@ -52,7 +52,7 @@ export const signIn = async (email: string, password: string) => {
             email, password
         })
         return response.data;
-    } catch (error) {
+    } catch {
 
     }
 }
@@ -63,7 +63,7 @@ export const signUp = async (email: string, password: string) => {
             email, password
         })
         return response.data;
-    } catch (error) {
+    } catch {
 
     }
 }
