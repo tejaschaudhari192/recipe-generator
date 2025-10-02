@@ -1,7 +1,12 @@
-export default async function Id({ params }: unknown) {
-    const id = await params.id;
-    console.log(id)
-    return <div>
-        Id = {id}
-    </div>
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default function IdPage({ params }: PageProps) {
+  const id = params.id;
+  console.log(id);
+
+  return <div>Id = {id}</div>;
 }
