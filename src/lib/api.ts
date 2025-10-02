@@ -4,9 +4,9 @@ import { configurations } from "./configuration";
 
 export const apiClient = axios.create({
     baseURL: typeof window === 'undefined' //differentiate between environments of ssr/csr
-    ? configurations.base_url
-    : '/api',
-    withCredentials:true,
+        ? configurations.base_url
+        : '/api',
+    withCredentials: true,
     headers: {
         'Content-Type': 'application/json'
     }
@@ -47,23 +47,15 @@ export const getHomePageContent = async () => {
 }
 
 export const signIn = async (email: string, password: string) => {
-    try {
         const response = await apiClient.post('/auth/signin', {
             email, password
         })
         return response.data;
-    } catch {
-
-    }
 }
 
 export const signUp = async (email: string, password: string) => {
-    try {
-        const response = await apiClient.post('/auth/signup', {
-            email, password
-        })
-        return response.data;
-    } catch {
-
-    }
+    const response = await apiClient.post('/auth/signup', {
+        email, password
+    })
+    return response.data;
 }

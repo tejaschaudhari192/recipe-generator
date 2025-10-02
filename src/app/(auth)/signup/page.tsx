@@ -4,7 +4,6 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import Link from "next/link"
 import { useState } from "react"
 import { signUp } from "@/lib/api"
 

@@ -43,6 +43,7 @@ export async function POST(req: NextRequest) {
             }
         } catch (err) {
             // If parsing fails, return empty array with 502
+            console.log(err)
             return NextResponse.json({ error: "Failed to parse AI response" }, { status: 502 });
         }
 
