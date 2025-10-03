@@ -46,16 +46,20 @@ export const getHomePageContent = async () => {
     }
 }
 
-export const signIn = async (email: string, password: string) => {
-        const response = await apiClient.post('/auth/signin', {
-            email, password
-        })
-        return response.data;
-}
-
 export const signUp = async (email: string, password: string) => {
+  try {
     const response = await apiClient.post('/auth/signup', {
-        email, password
-    })
+      email,
+      password,
+    });
+
     return response.data;
-}
+  } catch (error: any) {
+    // Axios error response
+    if (error.response && error.response.data?.error) {
+      return { error: error.response.data.error };
+    }
+
+    return { error: "Something went wrong. Please try again." };
+  }
+};
