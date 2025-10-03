@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { Ingredients, Recipes } from "./types";
 import { configurations } from "./configuration";
 
@@ -54,12 +54,12 @@ export const signUp = async (email: string, password: string) => {
     });
 
     return response.data;
-  } catch (error: any) {
-    // Axios error response
-    if (error.response && error.response.data?.error) {
-      return { error: error.response.data.error };
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      if (error.response?.data?.error) {
+        return { error: error.response.data.error };
+      }
     }
-
     return { error: "Something went wrong. Please try again." };
   }
 };
