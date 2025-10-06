@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { AlertCircleIcon, Loader2 } from "lucide-react";
 
@@ -21,7 +21,6 @@ export function SignIn({ callbackUrl }: SignInProps) {
     const [loading, setLoading] = useState(false);
 
     const router = useRouter();
-    const searchParams = useSearchParams();
 
     const handleSignIn = async () => {
         setError("");

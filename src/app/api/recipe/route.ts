@@ -2,11 +2,10 @@ import { configurations } from "@/lib/configuration";
 import { GoogleGenAI } from "@google/genai";
 import { NextRequest, NextResponse } from "next/server";
 import type { Recipes } from "@/types";
-import { getServerSession } from "next-auth";
 import prismaClient from "@/lib/prisma";
-import { createId } from "@paralleldrive/cuid2"
 import { Prisma } from "@prisma/client";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 const ai = new GoogleGenAI({
     apiKey: configurations.google_api_key
 });

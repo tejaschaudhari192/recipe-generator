@@ -7,7 +7,7 @@ import { getRecipes, getServerStatus } from "@/lib/api";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import type { Recipe } from "@/types";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 
 export default function Chat() {
