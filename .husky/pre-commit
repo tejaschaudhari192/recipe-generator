@@ -1,1 +1,2 @@
-npm run lint:staged
+# .husky/pre-commit
+npx lint-staged
