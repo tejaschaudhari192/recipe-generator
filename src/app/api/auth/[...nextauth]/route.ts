@@ -25,15 +25,33 @@ export const authOptions: AuthOptions = {
                         id: user.id.toString(),
                         email: user.email
                     };
-                } else {
-                    return null
                 }
+                return null
             }
         })
     ],
     secret: process.env.NEXTAUTH_SECRET,
-    pages:{
-        signIn:'/signin'
+    pages: {
+        signIn: '/signin'
+    },
+    callbacks: {
+        async jwt({ token, user }) {
+            if (user) {
+                token.id = (user.id).toString();
+                token.email = user.email;
+            }
+            return token;
+        },
+        async session({ session, token }) {
+            if (token.id) {
+                session.user.id = parseInt(token.id);
+                session.user.email = token.email as string;
+            }
+            return session;
+        }
+    },
+    session: {
+        strategy: "jwt"
     }
 }
 
