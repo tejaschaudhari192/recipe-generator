@@ -13,13 +13,13 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import Logo from "./logo"
 import { getUserData } from "@/lib/api"
 import { Bell, ChevronUp, CreditCard, Edit, LogOut, Settings, User } from "lucide-react"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import Logo from "@/components/logo"
 
 type Chat = {
     id: string
@@ -28,10 +28,10 @@ type Chat = {
 
 export function AppSidebar() {
     const [data, setData] = useState<Chat[]>([])
-    const [open,setOpen]=useState<boolean>(false)
+    const [open, setOpen] = useState<boolean>(false)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    const { data: session,status } = useSession()
+    const { data: session, status } = useSession()
 
 
     useEffect(() => {

@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth";
 import prismaClient from "@/lib/prisma";
 import { createId } from "@paralleldrive/cuid2"
 import { Prisma } from "@prisma/client";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 const ai = new GoogleGenAI({
     apiKey: configurations.google_api_key
 });

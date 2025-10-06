@@ -1,6 +1,6 @@
 import axios, { isAxiosError } from "axios";
-import { Ingredients, Recipes } from "../types";
-import { configurations } from "./configuration";
+import { Ingredients, Recipes } from "@/types";
+import { configurations } from "@/lib/configuration";
 
 export const apiClient = axios.create({
     baseURL: typeof window === 'undefined' //differentiate between environments of ssr/csr

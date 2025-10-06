@@ -1,7 +1,4 @@
-import { SignIn } from "./signin";
-
-
-
+import { SignIn } from "@/_pages/signin";
 
 interface SignInPageProps {
     searchParams: { [key: string]: string | string[] | undefined };

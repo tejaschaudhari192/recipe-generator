@@ -1,11 +1,11 @@
 
 import React from "react"
-import ChatClient from "./chat-client"
+import ChatClient from "@/_pages/chat"
 
 interface PageProps {
-  params: { chatId: string }
+    params: { chatId: string }
 }
 
 export default function ChatPage({ params }: PageProps) {
-  return <ChatClient chatId={params.chatId} />
+    return <ChatClient chatId={params.chatId} />
 }

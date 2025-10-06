@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
 import prismaClient from "@/lib/prisma";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function GET() {
     const session = await getServerSession(authOptions)
@@ -14,8 +14,8 @@ export async function GET() {
         where: {
             id: session.user.id
         },
-        include:{
-            Chat:true
+        include: {
+            Chat: true
         }
     })
 
