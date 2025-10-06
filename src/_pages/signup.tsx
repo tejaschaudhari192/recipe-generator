@@ -1,9 +1,9 @@
 "use client";
 
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { signUp } from "@/lib/api";
 import { useRouter } from "next/navigation";
@@ -11,12 +11,12 @@ import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { AlertCircleIcon, CheckCircle2, Loader2 } from "lucide-react";
 
 export default function SignUp() {
-  const [name, setName] = useState(""); // ✅ new state
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState(""); // Name state
+  const [email, setEmail] = useState(""); // Email state
+  const [password, setPassword] = useState(""); // Password state
+  const [error, setError] = useState(""); // Error state
+  const [success, setSuccess] = useState(""); // Success state
+  const [loading, setLoading] = useState(false); // Loading state
   const router = useRouter();
 
   const handleSignUp = async () => {
@@ -25,25 +25,26 @@ export default function SignUp() {
     setLoading(true);
 
     try {
-      const response = await signUp(name, email, password);
+      const response = await signUp(name, email, password); // Call to sign-up API
 
       if (response.error) {
-        setError(response.error);
+        setError(response.error); // Handle error
       } else {
         setSuccess("Account created successfully! Redirecting to Sign In...");
-        setTimeout(() => router.push("/signin"), 2000);
+        setTimeout(() => router.push("/signin"), 2000); // Redirect after 2 seconds
       }
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
-      setLoading(false);
+      setLoading(false); // Stop loading
     }
   };
 
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
-        <h1 className="text-2xl font-bold text-center">Create an Account</h1>
+        <CardTitle>Create an Account</CardTitle>
+        <CardDescription>Enter your information below to create your account</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {error && (
@@ -64,38 +65,56 @@ export default function SignUp() {
             </div>
           </Alert>
         )}
-        <div>
-          <Label htmlFor="name">Name</Label>
-          <Input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            disabled={loading}
-          />
-        </div>
+        <FieldGroup className="-space-y-2">
+          <Field>
+            <FieldLabel htmlFor="name">Full Name</FieldLabel>
+            <Input
+              id="name"
+              type="text"
+              placeholder="John Doe"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              disabled={loading}
+              required
+            />
+          </Field>
 
-        <div>
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={loading}
-          />
-        </div>
+          <Field>
+            <FieldLabel htmlFor="email">Email</FieldLabel>
+            <Input
+              id="email"
+              type="email"
+              placeholder="m@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={loading}
+              required
+            />
+          </Field>
 
-        <div>
-          <Label htmlFor="password">Password</Label>
-          <Input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={loading}
-          />
-        </div>
+          <Field>
+            <FieldLabel htmlFor="password">Password</FieldLabel>
+            <Input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={loading}
+              required
+            />
+          </Field>
+
+          <Field>
+            <FieldLabel htmlFor="confirm-password">Confirm Password</FieldLabel>
+            <Input
+              id="confirm-password"
+              type="password"
+              disabled={loading}
+              required
+            />
+            <FieldDescription>Please confirm your password.</FieldDescription>
+          </Field>
+        </FieldGroup>
       </CardContent>
       <CardFooter className="flex flex-col gap-2">
         <Button
@@ -106,6 +125,10 @@ export default function SignUp() {
           {loading && <Loader2 className="animate-spin h-5 w-5" />}
           {loading ? "Creating account..." : "Sign Up"}
         </Button>
+
+        {/* <Button variant="outline" type="button" disabled={loading}>
+          Sign up with Google
+        </Button> */}
       </CardFooter>
     </Card>
   );
