@@ -1,5 +1,5 @@
 import axios, { isAxiosError } from "axios";
-import { Ingredients, Recipes } from "./types";
+import { Ingredients, Recipes } from "../types";
 import { configurations } from "./configuration";
 
 export const apiClient = axios.create({
@@ -47,19 +47,51 @@ export const getHomePageContent = async () => {
 }
 
 export const signUp = async (email: string, password: string) => {
-  try {
-    const response = await apiClient.post('/auth/signup', {
-      email,
-      password,
-    });
+    try {
+        const response = await apiClient.post('/auth/signup', {
+            email,
+            password,
+        });
 
-    return response.data;
-  } catch (error: unknown) {
-    if (isAxiosError(error)) {
-      if (error.response?.data?.error) {
-        return { error: error.response.data.error };
-      }
+        return response.data;
+    } catch (error: unknown) {
+        if (isAxiosError(error)) {
+            if (error.response?.data?.error) {
+                return { error: error.response.data.error };
+            }
+        }
+        return { error: "Something went wrong. Please try again." };
     }
-    return { error: "Something went wrong. Please try again." };
-  }
+};
+
+export const getUserData = async () => {
+    try {
+        const response = await apiClient.get('/user');
+
+        return response.data;
+    } catch (error: unknown) {
+        if (isAxiosError(error)) {
+            if (error.response?.data?.error) {
+                return { error: error.response.data.error };
+            }
+        }
+        return { error: "Something went wrong. Please try again." };
+    }
+};
+
+export const getChatWithId = async (id: string) => {
+    try {
+        const response = await apiClient.post('/chat', {
+            chatId:id
+        });
+
+        return response.data;
+    } catch (error: unknown) {
+        if (isAxiosError(error)) {
+            if (error.response?.data?.error) {
+                return { error: error.response.data.error };
+            }
+        }
+        return { error: "Something went wrong. Please try again." };
+    }
 };

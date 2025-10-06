@@ -130,7 +130,7 @@
       background-position: 100% 50%;
     }
   }
-  
+
   .animate-gradient-xy {
     background-size: 400% 400%;
     animation: gradient-xy 15s ease infinite;
