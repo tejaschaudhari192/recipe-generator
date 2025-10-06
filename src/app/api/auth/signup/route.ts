@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
             },
         });
 
-        const { password: _, ...safeUser } = user;
+        const { ...safeUser } = user;
 
         return NextResponse.json({ user: safeUser }, { status: 201 });
     } catch (error) {
