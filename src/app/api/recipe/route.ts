@@ -1,8 +1,12 @@
 import { configurations } from "@/lib/configuration";
 import { GoogleGenAI } from "@google/genai";
 import { NextRequest, NextResponse } from "next/server";
-import type { Recipes } from "@/lib/types";
-
+import type { Recipes } from "@/types";
+import { getServerSession } from "next-auth";
+import prismaClient from "@/lib/prisma";
+import { createId } from "@paralleldrive/cuid2"
+import { Prisma } from "@prisma/client";
+import { authOptions } from "../auth/[...nextauth]/route";
 const ai = new GoogleGenAI({
     apiKey: configurations.google_api_key
 });
@@ -13,6 +17,8 @@ interface RecipeRequestBody {
 }
 
 export async function POST(req: NextRequest) {
+    const session = await getServerSession(authOptions)
+
     try {
         const body: RecipeRequestBody = await req.json();
         const ingredients = body.ingredients;
@@ -45,6 +51,17 @@ export async function POST(req: NextRequest) {
             // If parsing fails, return empty array with 502
             console.log(err)
             return NextResponse.json({ error: "Failed to parse AI response" }, { status: 502 });
+        }
+
+        if (session) {
+            await prismaClient.chat.create({
+                data: {
+                    title: ingredients.join('+'),
+                    ingredients,
+                    recipes: recipes as unknown as Prisma.InputJsonValue[],  // cast here
+                    user: { connect: { id: session.user.id } }
+                }
+            })
         }
 
         return NextResponse.json(recipes);
