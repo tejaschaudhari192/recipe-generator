@@ -6,6 +6,7 @@ import {
     SidebarContent,
     SidebarFooter,
     SidebarGroup,
+    SidebarGroupContent,
     SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
@@ -14,9 +15,11 @@ import {
 } from "@/components/ui/sidebar"
 import Logo from "./logo"
 import { getUserData } from "@/lib/api"
-import { Edit } from "lucide-react"
+import { Bell, ChevronUp, CreditCard, Edit, LogOut, Settings, User } from "lucide-react"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 
 type Chat = {
     id: string
@@ -25,9 +28,10 @@ type Chat = {
 
 export function AppSidebar() {
     const [data, setData] = useState<Chat[]>([])
+    const [open,setOpen]=useState<boolean>(false)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    const { data: session } = useSession()
+    const { data: session,status } = useSession()
 
 
     useEffect(() => {
@@ -43,16 +47,17 @@ export function AppSidebar() {
                 setLoading(false)
             }
         }
-        if (session) {   
+        if (session)
             fetchData()
-        }
-    }, [])
+    }, [session])
 
     if (!session) {
         return null
     }
+    const userName = session.user.name;
+    const userEmail = session.user.email;
 
-    
+
 
     return (
         <Sidebar>
@@ -90,7 +95,7 @@ export function AppSidebar() {
 
                     {!loading &&
                         !error &&
-                            data &&
+                        data &&
                         data.map((chat) => (
                             <Link href={'/chat/' + chat.id}
                                 key={chat.id}
@@ -102,8 +107,60 @@ export function AppSidebar() {
                 </SidebarGroup>
             </SidebarContent>
 
-            <SidebarFooter>
-                <div className="px-4 py-2 text-sm text-gray-500">{session?.user.email}</div>
+            <SidebarFooter className="border-t border-border">
+                <DropdownMenu open={open} onOpenChange={setOpen}>
+                    <DropdownMenuTrigger asChild>
+                        <button className="flex w-full items-center justify-between rounded-lg px-3 py-2 hover:bg-muted">
+                            <div className="flex items-center gap-2">
+                                <Avatar className="h-8 w-8">
+                                    <AvatarImage src="/anime/shadcn.jpg" alt="@shadcn" />
+                                    <AvatarFallback>SC</AvatarFallback>
+                                </Avatar>
+                                <div className="flex flex-col text-left">
+                                    <span className="text-sm font-medium">{userName}</span>
+                                    <span className="text-xs text-muted-foreground">
+                                        {userEmail}
+                                    </span>
+                                </div>
+                            </div>
+                            <ChevronUp
+                                className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""
+                                    }`}
+                            />
+                        </button>
+                    </DropdownMenuTrigger>
+
+                    <DropdownMenuContent
+                        side="top"
+                        align="end"
+                        className="w-56 rounded-xl"
+                    >
+                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>
+                            <User className="mr-2 h-4 w-4" />
+                            Account
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <CreditCard className="mr-2 h-4 w-4" />
+                            Billing
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <Bell className="mr-2 h-4 w-4" />
+                            Notifications
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>
+                            <Settings className="mr-2 h-4 w-4" />
+                            Upgrade to Pro
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem className="text-red-500 focus:text-red-500">
+                            <LogOut className="mr-2 h-4 w-4" />
+                            Log out
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </SidebarFooter>
         </Sidebar>
     )
