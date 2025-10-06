@@ -46,9 +46,10 @@ export const getHomePageContent = async () => {
     }
 }
 
-export const signUp = async (email: string, password: string) => {
+export const signUp = async (name: string, email: string, password: string) => {
     try {
         const response = await apiClient.post('/auth/signup', {
+            name,
             email,
             password,
         });
@@ -82,7 +83,7 @@ export const getUserData = async () => {
 export const getChatWithId = async (id: string) => {
     try {
         const response = await apiClient.post('/chat', {
-            chatId:id
+            chatId: id
         });
 
         return response.data;
