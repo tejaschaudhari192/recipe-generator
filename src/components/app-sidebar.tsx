@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Sidebar,
   SidebarContent,
@@ -11,6 +11,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
 import { getUserData } from '@/lib/api';
 import { ChevronsUpDown, Edit, LogOut } from 'lucide-react';
@@ -28,6 +29,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { NavMain } from './sidebar/nav-main';
 import { TeamSwitcher } from './sidebar/team-switcher';
+import { Switch } from './ui/switch';
+import ThemeSwitch from './theme-switch';
 
 type Chat = {
   id: string;
@@ -36,6 +39,8 @@ type Chat = {
 
 export function AppSidebar() {
   const [data, setData] = useState<Chat[]>([]);
+  const [open, setOpen] = useState(false);
+  const [enabled, setEnabled] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { data: session } = useSession();
@@ -66,7 +71,7 @@ export function AppSidebar() {
   const navMain = [
     {
       title: 'New Chat',
-      url: '#',
+      url: '/chat',
       icon: Edit,
     },
   ];
@@ -96,13 +101,16 @@ export function AppSidebar() {
             !error &&
             data &&
             data.map((chat) => (
-              <Link
-                href={'/chat/' + chat.id}
-                key={chat.id}
-                className="p-2 cursor-pointer hover:bg-gray-100 transition-all rounded-lg"
-              >
-                {chat.title}
-              </Link>
+              <SidebarMenuItem key={chat.id}>
+                <SidebarMenuButton>
+                  <Link
+                    href={'/chat/' + chat.id}
+                    className=" cursor-pointer transition-all rounded-lg"
+                  >
+                    {chat.title}
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             ))}
         </SidebarGroup>
       </SidebarContent>
@@ -149,6 +157,11 @@ export function AppSidebar() {
                 <DropdownMenuItem onClick={() => signOut()}>
                   <LogOut />
                   Log out
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <ThemeSwitch />
+                  Mode
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
