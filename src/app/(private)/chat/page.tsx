@@ -14,7 +14,7 @@ export default function Chat() {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [loading, setLoading] = useState(false);
-    const { data: session, status } = useSession();
+    const { status } = useSession();
 
     async function setIngredients() {
         setLoading(true);
@@ -45,12 +45,8 @@ export default function Chat() {
     return (
         <div className="flex flex-col min-h-screen bg-gray-50 font-sans">
             <header className="p-5 flex justify-end items-center">
-                <div>{status}
-                    {status == "authenticated" ?
-                        <>
-                            <Button onClick={() => signOut()}>Logout
-                            </Button>
-                        </> :
+                <div>
+                    {status == "unauthenticated" &&
                         <>
                             <Button onClick={() => signIn()}>SignIn
                             </Button>
