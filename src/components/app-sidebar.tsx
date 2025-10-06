@@ -6,7 +6,6 @@ import {
     SidebarContent,
     SidebarFooter,
     SidebarGroup,
-    SidebarGroupContent,
     SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
@@ -14,12 +13,14 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { getUserData } from "@/lib/api"
-import { Bell, ChevronUp, CreditCard, Edit, LogOut, Settings, User } from "lucide-react"
+import { ChevronsUpDown, Edit, LogOut } from "lucide-react"
 import Link from "next/link"
-import { useSession } from "next-auth/react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { signOut, useSession } from "next-auth/react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import Logo from "@/components/logo"
+import { useIsMobile } from "@/hooks/use-mobile"
+import { NavMain } from "./sidebar/nav-main"
+import { TeamSwitcher } from "./sidebar/team-switcher"
 
 type Chat = {
     id: string
@@ -28,10 +29,10 @@ type Chat = {
 
 export function AppSidebar() {
     const [data, setData] = useState<Chat[]>([])
-    const [open, setOpen] = useState<boolean>(false)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    const { data: session, status } = useSession()
+    const { data: session } = useSession()
+    const isMobile = useIsMobile()
 
 
     useEffect(() => {
@@ -57,29 +58,25 @@ export function AppSidebar() {
     const userName = session.user.name;
     const userEmail = session.user.email;
 
+    const navMain = [
+        {
+            title: "New Chat",
+            url: "#",
+            icon: Edit
+        }]
+
 
 
     return (
-        <Sidebar>
+        <Sidebar collapsible="icon">
             <SidebarHeader>
-                <Logo className="scale-[0.5]" />
+                <TeamSwitcher />
             </SidebarHeader>
 
             <SidebarContent>
-                <SidebarGroup>
-                    <SidebarMenu>
-                        <SidebarMenuItem>
-                            <SidebarMenuButton>
-                                <Link href="/chat" className="flex items-center gap-2">
-                                    <Edit className="w-4 h-4" />
-                                    <span>New Chat</span>
-                                </Link>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
-                    </SidebarMenu>
-                </SidebarGroup>
+                <NavMain items={navMain} />
 
-                <SidebarGroup>
+                <SidebarGroup className="group-data-[collapsible=icon]:hidden">
                     <SidebarGroupLabel>My Chats</SidebarGroupLabel>
                     {loading && (
                         <div className="p-2 text-sm text-gray-500">Loading chats...</div>
@@ -108,59 +105,52 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter className="border-t border-border">
-                <DropdownMenu open={open} onOpenChange={setOpen}>
-                    <DropdownMenuTrigger asChild>
-                        <button className="flex w-full items-center justify-between rounded-lg px-3 py-2 hover:bg-muted">
-                            <div className="flex items-center gap-2">
-                                <Avatar className="h-8 w-8">
-                                    <AvatarImage src="/anime/shadcn.jpg" alt="@shadcn" />
-                                    <AvatarFallback>SC</AvatarFallback>
-                                </Avatar>
-                                <div className="flex flex-col text-left">
-                                    <span className="text-sm font-medium">{userName}</span>
-                                    <span className="text-xs text-muted-foreground">
-                                        {userEmail}
-                                    </span>
-                                </div>
-                            </div>
-                            <ChevronUp
-                                className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""
-                                    }`}
-                            />
-                        </button>
-                    </DropdownMenuTrigger>
-
-                    <DropdownMenuContent
-                        side="top"
-                        align="end"
-                        className="w-56 rounded-xl"
-                    >
-                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                            <User className="mr-2 h-4 w-4" />
-                            Account
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <CreditCard className="mr-2 h-4 w-4" />
-                            Billing
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <Bell className="mr-2 h-4 w-4" />
-                            Notifications
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                            <Settings className="mr-2 h-4 w-4" />
-                            Upgrade to Pro
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem className="text-red-500 focus:text-red-500">
-                            <LogOut className="mr-2 h-4 w-4" />
-                            Log out
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <SidebarMenu>
+                    <SidebarMenuItem>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <SidebarMenuButton
+                                    size="lg"
+                                    className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                                >
+                                    <Avatar className="h-8 w-8 rounded-lg">
+                                        <AvatarImage src="anime/shadcn.jpg" alt={userName} />
+                                        <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                                    </Avatar>
+                                    <div className="grid flex-1 text-left text-sm leading-tight">
+                                        <span className="truncate font-medium">{userName}</span>
+                                        <span className="truncate text-xs">{userEmail}</span>
+                                    </div>
+                                    <ChevronsUpDown className="ml-auto size-4" />
+                                </SidebarMenuButton>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent
+                                className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+                                side={isMobile ? "bottom" : "right"}
+                                align="end"
+                                sideOffset={4}
+                            >
+                                <DropdownMenuLabel className="p-0 font-normal">
+                                    <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                                        <Avatar className="h-8 w-8 rounded-lg">
+                                            <AvatarImage src="/anime/shadcn.jpg" alt={userName} />
+                                            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                                        </Avatar>
+                                        <div className="grid flex-1 text-left text-sm leading-tight">
+                                            <span className="truncate font-medium">{userName}</span>
+                                            <span className="truncate text-xs">{userEmail}</span>
+                                        </div>
+                                    </div>
+                                </DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem onClick={() => signOut()}>
+                                    <LogOut />
+                                    Log out
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </SidebarMenuItem>
+                </SidebarMenu>
             </SidebarFooter>
         </Sidebar>
     )
