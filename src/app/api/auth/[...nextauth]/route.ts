@@ -1,9 +1,9 @@
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import prismaClient from "@/lib/prisma";
-import { AuthOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 
-export const authOptions: AuthOptions = {
+export const authOptions: NextAuthOptions = {
     // Configure one or more authentication providers
     providers: [
         Credentials({
@@ -23,7 +23,7 @@ export const authOptions: AuthOptions = {
 
                 if (user?.password == credentials.password) {
                     return {
-                        id: user.id.toString(),
+                        id: user.id,
                         email: user.email,
                         name:user.name
                     };
