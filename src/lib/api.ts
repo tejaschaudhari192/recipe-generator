@@ -75,11 +75,15 @@ export const getUserData = async () => {
     return response.data;
   } catch (error: unknown) {
     if (isAxiosError(error)) {
-      if (error.response?.data?.error) {
-        return { error: error.response.data.error };
-      }
+      console.error('Axios error:', {
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data,
+      });
+    } else {
+      console.error('Unknown error:', error);
     }
-    return { error: 'Something went wrong. Please try again.' };
+    return null;
   }
 };
 
@@ -92,10 +96,14 @@ export const getChatWithId = async (id: string) => {
     return response.data;
   } catch (error: unknown) {
     if (isAxiosError(error)) {
-      if (error.response?.data?.error) {
-        return { error: error.response.data.error };
-      }
+      console.error('Axios error:', {
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data,
+      });
+    } else {
+      console.error('Unknown error:', error);
     }
-    return { error: 'Something went wrong. Please try again.' };
+    return null;
   }
 };

@@ -17,21 +17,20 @@ interface HomePageData {
   steps: Step[];
 }
 
-// server side data fetching
 export default async function Home() {
   const data: HomePageData = await getHomePageContent();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-20">
-        <div className="text-center max-w-6xl mx-auto fade-in-slide">
-          <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-800 px-4 py-2 rounded-full mb-6 animate-fade-in-up delay-100">
+        <div className="text-center max-w-6xl mx-auto space-y-6">
+          <div className="inline-flex items-center gap-2 bg-muted text-muted-foreground px-4 py-2 rounded-full">
             <Sparkles className="w-4 h-4" />
             <span className="text-sm font-medium">{data.tagline}</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up delay-200">
+          <h1 className="text-5xl md:text-7xl font-bold leading-tight">
             Turn Your{' '}
             <span className="bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
               {data.highlightedWord}
@@ -40,46 +39,45 @@ export default async function Home() {
             Into Amazing Recipes
           </h1>
 
-          <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto animate-fade-in-up delay-300">
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
             {data.description}
           </p>
 
           {/* Benefits */}
-          <div className="flex flex-wrap justify-center gap-6 mb-10 animate-fade-in-up delay-400">
+          <div className="flex flex-wrap justify-center gap-4">
             {data.benefits.map((benefit, i) => (
-              <div key={i} className="flex items-center gap-2">
+              <div
+                key={i}
+                className="flex items-center gap-2 text-muted-foreground"
+              >
                 <CheckCircle className="w-5 h-5 text-green-500" />
-                <span className="text-gray-700">{benefit}</span>
+                <span>{benefit}</span>
               </div>
             ))}
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in-up delay-500">
-            <Link href={'/chat'}>
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white px-8 py-6 rounded-full text-lg shadow-lg hover:shadow-xl transition-all"
-              >
-                Start Cooking Now <ArrowRight className="w-5 h-5 ml-2" />
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+            <Link href="/chat">
+              <Button size="lg" className="px-8 py-6 text-lg">
+                Start Cooking Now
+                <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>
-            <Button
-              size="lg"
-              variant="outline"
-              className="px-8 py-6 rounded-full text-lg border-2 hover:bg-gray-50"
-            >
-              Watch Demo <Clock className="w-5 h-5 ml-2" />
+
+            <Button size="lg" variant="outline" className="px-8 py-6 text-lg">
+              Watch Demo
+              <Clock className="w-5 h-5 ml-2" />
             </Button>
           </div>
         </div>
       </section>
 
       {/* How It Works Section */}
-      <section className="bg-gray-50 py-20">
+      <section className="bg-muted py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 fade-in-slide delay-100">
-            <h2 className="text-4xl font-bold mb-4">How It Works</h2>
-            <p className="text-xl text-gray-600">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-2">How It Works</h2>
+            <p className="text-xl text-muted-foreground">
               Three simple steps to delicious meals
             </p>
           </div>
@@ -88,19 +86,16 @@ export default async function Home() {
             {data.steps.map((step, i) => {
               const colors = ['bg-orange-500', 'bg-pink-500', 'bg-purple-500'];
               return (
-                <div
-                  key={i}
-                  className={`text-center fade-in-slide delay-${300 + i * 100}`}
-                >
+                <div key={i} className="text-center space-y-4">
                   <div
-                    className={`w-16 h-16 ${colors[i]} rounded-full flex items-center justify-center mx-auto mb-4`}
+                    className={`w-16 h-16 ${colors[i]} rounded-full flex items-center justify-center mx-auto`}
                   >
                     <span className="text-white font-bold text-xl">
                       {step.number}
                     </span>
                   </div>
-                  <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                  <p className="text-gray-600">{step.description}</p>
+                  <h3 className="text-xl font-semibold">{step.title}</h3>
+                  <p className="text-muted-foreground">{step.description}</p>
                 </div>
               );
             })}
