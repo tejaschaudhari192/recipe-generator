@@ -1,6 +1,7 @@
-import NextAuth, { AuthOptions } from "next-auth"
+import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import prismaClient from "@/lib/prisma";
+import { AuthOptions } from "next-auth";
 
 export const authOptions: AuthOptions = {
     // Configure one or more authentication providers
@@ -22,7 +23,7 @@ export const authOptions: AuthOptions = {
 
                 if (user?.password == credentials.password) {
                     return {
-                        id: user.id,
+                        id: user.id.toString(),
                         email: user.email,
                         name:user.name
                     };
@@ -46,7 +47,7 @@ export const authOptions: AuthOptions = {
         async session({ session, token }) {
             if (token.id) {
                 session.user.id = parseInt(token.id);
-                session.user.email = token.email as string;
+                session.user.email = token.email;
             }
             return session;
         }
