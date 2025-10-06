@@ -7,7 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "format": "prettier --write",
+    "format": "prettier --write .",
     "postinstall": "prisma generate",
     "prepare": "husky"
   },
@@ -38,9 +38,9 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-        "eslint --fix",
-        "npm run lint",
-      "npm run format"
+      "eslint --fix",
+      "pnpm run lint",
+      "pnpm run format"
     ]
   },
   "devDependencies": {

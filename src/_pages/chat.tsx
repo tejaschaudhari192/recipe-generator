@@ -1,35 +1,35 @@
-"use client"
+'use client';
 
-import RecipeCard from "@/components/recipe-card"
-import { getChatWithId } from "@/lib/api"
-import { Recipe } from "@/types"
-import { LoaderPinwheel } from "lucide-react"
-import React, { useEffect, useState } from "react"
+import RecipeCard from '@/components/recipe-card';
+import { getChatWithId } from '@/lib/api';
+import { Recipe } from '@/types';
+import { LoaderPinwheel } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 
 interface ChatClientProps {
-  chatId: string
+  chatId: string;
 }
 
 export default function ChatClient({ chatId }: ChatClientProps) {
-  const [recipes, setRecipes] = useState<Recipe[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await getChatWithId(chatId)
-        setRecipes(data.recipes || [])
+        const data = await getChatWithId(chatId);
+        setRecipes(data.recipes || []);
       } catch (err) {
-        console.error(err)
-        setError("Failed to load recipes.")
+        console.error(err);
+        setError('Failed to load recipes.');
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     }
 
-    fetchData()
-  }, [chatId])
+    fetchData();
+  }, [chatId]);
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 font-sans">
@@ -52,5 +52,5 @@ export default function ChatClient({ chatId }: ChatClientProps) {
         )}
       </main>
     </div>
-  )
+  );
 }

@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -123,7 +123,8 @@
 
 @layer utilities {
   @keyframes gradient-xy {
-    0%, 100% {
+    0%,
+    100% {
       background-position: 0% 50%;
     }
     50% {
@@ -136,7 +137,7 @@
     animation: gradient-xy 15s ease infinite;
   }
 
-   .fade-in-slide {
+  .fade-in-slide {
     @apply opacity-0 translate-y-5;
     animation: fadeInSlide 0.6s ease-out forwards;
   }
@@ -146,12 +147,24 @@
     animation: fadeInSlide 0.6s ease-out forwards;
   }
 
-  .delay-100 { animation-delay: 0.1s; }
-  .delay-200 { animation-delay: 0.2s; }
-  .delay-300 { animation-delay: 0.3s; }
-  .delay-400 { animation-delay: 0.4s; }
-  .delay-500 { animation-delay: 0.5s; }
-  .delay-600 { animation-delay: 0.6s; }
+  .delay-100 {
+    animation-delay: 0.1s;
+  }
+  .delay-200 {
+    animation-delay: 0.2s;
+  }
+  .delay-300 {
+    animation-delay: 0.3s;
+  }
+  .delay-400 {
+    animation-delay: 0.4s;
+  }
+  .delay-500 {
+    animation-delay: 0.5s;
+  }
+  .delay-600 {
+    animation-delay: 0.6s;
+  }
 
   @keyframes fadeInSlide {
     to {
@@ -162,7 +175,8 @@
 }
 
 @keyframes bounceAlt {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
     opacity: 1;
   }
@@ -173,7 +187,8 @@
 }
 
 @keyframes pulseAlt {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {

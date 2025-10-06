@@ -1,22 +1,20 @@
-import { Button } from '@/components/ui/button'
-import {
-  Sparkles, ArrowRight, Clock, CheckCircle
-} from 'lucide-react'
-import { getHomePageContent } from '@/lib/api'
-import Link from 'next/link'
+import { Button } from '@/components/ui/button';
+import { Sparkles, ArrowRight, Clock, CheckCircle } from 'lucide-react';
+import { getHomePageContent } from '@/lib/api';
+import Link from 'next/link';
 
 interface Step {
-  number: number
-  title: string
-  description: string
+  number: number;
+  title: string;
+  description: string;
 }
 
 interface HomePageData {
-  tagline: string
-  highlightedWord: string
-  description: string
-  benefits: string[]
-  steps: Step[]
+  tagline: string;
+  highlightedWord: string;
+  description: string;
+  benefits: string[];
+  steps: Step[];
 }
 
 // server side data fetching
@@ -81,12 +79,14 @@ export default async function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 fade-in-slide delay-100">
             <h2 className="text-4xl font-bold mb-4">How It Works</h2>
-            <p className="text-xl text-gray-600">Three simple steps to delicious meals</p>
+            <p className="text-xl text-gray-600">
+              Three simple steps to delicious meals
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {data.steps.map((step, i) => {
-              const colors = ['bg-orange-500', 'bg-pink-500', 'bg-purple-500']
+              const colors = ['bg-orange-500', 'bg-pink-500', 'bg-purple-500'];
               return (
                 <div
                   key={i}
@@ -95,16 +95,18 @@ export default async function Home() {
                   <div
                     className={`w-16 h-16 ${colors[i]} rounded-full flex items-center justify-center mx-auto mb-4`}
                   >
-                    <span className="text-white font-bold text-xl">{step.number}</span>
+                    <span className="text-white font-bold text-xl">
+                      {step.number}
+                    </span>
                   </div>
                   <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
                   <p className="text-gray-600">{step.description}</p>
                 </div>
-              )
+              );
             })}
           </div>
         </div>
       </section>
     </div>
-  )
+  );
 }
