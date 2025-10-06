@@ -2,6 +2,7 @@
 
 import RecipeCard from "@/components/recipe-card"
 import { getChatWithId } from "@/lib/api"
+import { Recipe } from "@/types"
 import { LoaderPinwheel } from "lucide-react"
 import React, { useEffect, useState } from "react"
 
@@ -10,7 +11,7 @@ interface ChatClientProps {
 }
 
 export default function ChatClient({ chatId }: ChatClientProps) {
-  const [recipes, setRecipes] = useState<any[]>([])
+  const [recipes, setRecipes] = useState<Recipe[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 

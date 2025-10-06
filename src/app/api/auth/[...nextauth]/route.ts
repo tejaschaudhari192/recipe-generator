@@ -22,7 +22,7 @@ export const authOptions: AuthOptions = {
 
                 if (user?.password == credentials.password) {
                     return {
-                        id: user.id.toString(),
+                        id: user.id,
                         email: user.email
                     };
                 }
