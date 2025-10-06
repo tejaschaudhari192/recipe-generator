@@ -16,6 +16,7 @@ import Logo from "./logo"
 import { getUserData } from "@/lib/api"
 import { Edit } from "lucide-react"
 import Link from "next/link"
+import { useSession } from "next-auth/react"
 
 type Chat = {
     id: string
@@ -26,6 +27,8 @@ export function AppSidebar() {
     const [data, setData] = useState<Chat[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
+    const { data: session } = useSession()
+
 
     useEffect(() => {
         async function fetchData() {
@@ -40,8 +43,16 @@ export function AppSidebar() {
                 setLoading(false)
             }
         }
-        fetchData()
+        if (session) {   
+            fetchData()
+        }
     }, [])
+
+    if (!session) {
+        return null
+    }
+
+    
 
     return (
         <Sidebar>
@@ -73,12 +84,13 @@ export function AppSidebar() {
                         <div className="p-2 text-sm text-red-500">{error}</div>
                     )}
 
-                    {!loading && !error && data.length === 0 && (
+                    {!loading && !error && data && data.length === 0 && (
                         <div className="p-2 text-sm text-gray-400">No chats found.</div>
                     )}
 
                     {!loading &&
                         !error &&
+                            data &&
                         data.map((chat) => (
                             <Link href={'/chat/' + chat.id}
                                 key={chat.id}
@@ -91,7 +103,7 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
-                <div className="px-4 py-2 text-sm text-gray-500">Footer content here</div>
+                <div className="px-4 py-2 text-sm text-gray-500">{session?.user.email}</div>
             </SidebarFooter>
         </Sidebar>
     )
