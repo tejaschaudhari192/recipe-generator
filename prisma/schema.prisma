@@ -14,14 +14,15 @@ datasource db {
 }
 
 model User {
-    id       Int @id @default(autoincrement())
+    id       Int    @id @default(autoincrement())
+    name     String
     email    String @unique
     password String
     Chat     Chat[]
 }
 
 model Chat {
-    id          String      @id @default(nanoid())
+    id          String   @id @default(nanoid())
     title       String
     ingredients String[]
     recipes     Json[]

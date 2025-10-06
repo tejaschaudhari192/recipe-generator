@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,7 @@ import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { AlertCircleIcon, CheckCircle2, Loader2 } from "lucide-react";
 
 export default function SignUpPage() {
+  const [name, setName] = useState(""); // ✅ new state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -22,14 +23,15 @@ export default function SignUpPage() {
     setError("");
     setSuccess("");
     setLoading(true);
+
     try {
-      const response = await signUp(email, password);
+      const response = await signUp(name, email, password);
 
       if (response.error) {
         setError(response.error);
       } else {
         setSuccess("Account created successfully! Redirecting to Sign In...");
-        setTimeout(() => router.push('/signin'), 2000);
+        setTimeout(() => router.push("/signin"), 2000);
       }
     } catch {
       setError("Something went wrong. Please try again.");
@@ -63,22 +65,34 @@ export default function SignUpPage() {
           </Alert>
         )}
         <div>
+          <Label htmlFor="name">Name</Label>
+          <Input
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            disabled={loading}
+          />
+        </div>
+
+        <div>
           <Label htmlFor="email">Email</Label>
           <Input
             id="email"
             type="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             disabled={loading}
           />
         </div>
+
         <div>
           <Label htmlFor="password">Password</Label>
           <Input
             id="password"
             type="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             disabled={loading}
           />
         </div>

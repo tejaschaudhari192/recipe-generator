@@ -23,7 +23,8 @@ export const authOptions: AuthOptions = {
                 if (user?.password == credentials.password) {
                     return {
                         id: user.id,
-                        email: user.email
+                        email: user.email,
+                        name:user.name
                     };
                 }
                 return null
