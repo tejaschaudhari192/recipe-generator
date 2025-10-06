@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { getRecipes, getServerStatus } from "@/lib/api";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import type { Recipe } from "@/lib/types";
+import type { Recipe } from "@/types";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 
