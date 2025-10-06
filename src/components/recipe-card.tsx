@@ -8,7 +8,7 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
   const [showInstructions, setShowInstructions] = useState(true);
 
   return (
-    <Card className="hover:shadow-lg transition-shadow border border-muted bg-white rounded-lg">
+    <Card className="hover:shadow-lg transition-shadow border border-muted rounded-lg">
       <CardHeader>
         <CardTitle className="text-xl font-bold text-primary mb-1">
           {recipe.title}
