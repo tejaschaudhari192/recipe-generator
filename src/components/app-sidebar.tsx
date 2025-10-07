@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Sidebar,
   SidebarContent,
@@ -38,8 +38,6 @@ type Chat = {
 
 export function AppSidebar() {
   const [data, setData] = useState<Chat[]>([]);
-  const [open, setOpen] = useState(false);
-  const [enabled, setEnabled] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { data: session } = useSession();
@@ -159,8 +157,8 @@ export function AppSidebar() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <ThemeSwitch />
-                  Mode
+                  Dark Mode
+                  <ThemeSwitch type="switch" />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
