@@ -6,7 +6,6 @@ import { Recipe } from '@/types';
 import RecipeCard from '@/components/recipe-card';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { LoaderPinwheel } from 'lucide-react';
 
 interface ChatClientProps {
   chatId: string;

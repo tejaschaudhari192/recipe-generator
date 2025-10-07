@@ -8,10 +8,7 @@ export default function PrivateLayout({ children }: { children: ReactNode }) {
     <SessionProvider>
       <SidebarProvider className="flex">
         <AppSidebar />
-        <main className="grow">
-          <SidebarTrigger />
-          {children}
-        </main>
+        <main className="grow">{children}</main>
       </SidebarProvider>
     </SessionProvider>
   );

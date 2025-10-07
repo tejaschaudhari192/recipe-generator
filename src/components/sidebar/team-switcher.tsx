@@ -7,10 +7,15 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
+  useSidebar,
 } from '@/components/ui/sidebar';
 import Logo from '@/components/logo';
+import { cn } from '@/lib/utils';
+import IconHoverToggle from '../IconHoverToggle';
 
 export function TeamSwitcher() {
+  const { open } = useSidebar();
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -18,12 +23,12 @@ export function TeamSwitcher() {
           size="lg"
           className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
         >
-          <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-            <Utensils />
-          </div>
+          <IconHoverToggle open={open} />
+
           <div className="grid flex-1 text-left text-sm leading-tight">
-            <Logo className="text-3xl" />
+            <Logo className="text-2xl" />
           </div>
+          <SidebarTrigger />
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>

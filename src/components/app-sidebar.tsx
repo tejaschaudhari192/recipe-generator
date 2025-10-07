@@ -11,7 +11,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSubItem,
+  SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { getUserData } from '@/lib/api';
 import { ChevronsUpDown, Edit, LogOut } from 'lucide-react';
@@ -29,7 +29,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { NavMain } from './sidebar/nav-main';
 import { TeamSwitcher } from './sidebar/team-switcher';
-import { Switch } from './ui/switch';
 import ThemeSwitch from './theme-switch';
 
 type Chat = {
