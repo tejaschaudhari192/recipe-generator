@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/sidebar';
 import Logo from '@/components/logo';
 import { cn } from '@/lib/utils';
-import IconHoverToggle from '../IconHoverToggle';
+import IconHoverToggle from '../icon-toggle';
 
 export function TeamSwitcher() {
   const { open } = useSidebar();
