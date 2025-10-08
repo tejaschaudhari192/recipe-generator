@@ -8,3 +8,8 @@ export interface Recipe {
 }
 
 export type Recipes = Recipe[];
+
+export type Chat = {
+  id: string;
+  title: string;
+};

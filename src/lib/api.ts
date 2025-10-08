@@ -107,3 +107,26 @@ export const getChatWithId = async (id: string) => {
     return null;
   }
 };
+
+export const deletChatWithId = async (id: string) => {
+  try {
+    const response = await apiClient.delete('/chat', {
+      params: {
+        chatId: id,
+      },
+    });
+
+    return response.data;
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      console.error('Axios error:', {
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data,
+      });
+    } else {
+      console.error('Unknown error:', error);
+    }
+    return null;
+  }
+};
