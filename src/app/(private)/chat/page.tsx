@@ -4,9 +4,8 @@ import RecipeCard from '@/components/recipe-card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
-import { getRecipes, getServerStatus } from '@/lib/api';
-import { useEffect, useRef, useState } from 'react';
+import { getRecipes } from '@/lib/api';
+import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 import type { Recipe } from '@/types';
 import { signIn, useSession } from 'next-auth/react';
@@ -38,23 +37,8 @@ export default function Chat() {
     setLoading(false);
   }
 
-  useEffect(() => {
-    getServerStatus()
-      .then((alive) => {
-        if (alive) {
-          toast.success('Server Connected!', { position: 'top-right' });
-        } else {
-          toast.error('Server Not Reachable', { position: 'top-right' });
-        }
-      })
-      .catch(() => {
-        toast.error('Server Not Reachable', { position: 'top-right' });
-      });
-  }, []);
-
   return (
     <div className="flex flex-col min-h-screen bg-muted font-sans">
-      {/* Header */}
       <header className="p-5 flex justify-end items-center">
         {status === 'unauthenticated' && (
           <Button onClick={() => signIn()}>Sign In</Button>
@@ -63,15 +47,15 @@ export default function Chat() {
 
       {/* Main Content */}
       <main className="flex-grow max-w-4xl w-full mx-auto p-6 flex flex-col justify-center items-center">
-        {loading ? (
-          <div className="flex flex-col items-center space-y-4 w-full">
-            <Skeleton className="w-32 h-32 rounded-full" />
-            <Skeleton className="w-2/3 h-6 rounded" />
-            <p className="text-muted-foreground text-sm">
+        {loading && (
+          <div className="flex flex-col items-center space-y-3 text-gray-700">
+            <img id="food" src="/anime/food.gif" alt="description" />
+            <p className="text-xl font-semibold">
               Cooking up some tasty recipes...
             </p>
           </div>
-        ) : recipes.length === 0 ? (
+        )}
+        {!loading && recipes.length === 0 ? (
           <Card className="text-center w-full max-w-md">
             <CardHeader>
               <CardTitle className="text-indigo-500">No Recipes Yet</CardTitle>
