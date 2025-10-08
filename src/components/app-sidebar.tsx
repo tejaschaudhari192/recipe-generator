@@ -11,7 +11,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { getUserData } from '@/lib/api';
 import { ChevronsUpDown, Edit, LogOut } from 'lucide-react';
@@ -30,11 +29,8 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { NavMain } from './sidebar/nav-main';
 import { TeamSwitcher } from './sidebar/team-switcher';
 import ThemeSwitch from './theme-switch';
-
-type Chat = {
-  id: string;
-  title: string;
-};
+import { ChatOptions } from './chat-options';
+import { Chat } from '@/types';
 
 export function AppSidebar() {
   const [data, setData] = useState<Chat[]>([]);
@@ -48,7 +44,6 @@ export function AppSidebar() {
       try {
         const user = await getUserData();
         setData(user.Chat);
-        console.log(user.Chat);
       } catch (err) {
         console.error(err);
         setError('Failed to load chats.');
@@ -99,13 +94,14 @@ export function AppSidebar() {
             data &&
             data.map((chat) => (
               <SidebarMenuItem key={chat.id}>
-                <SidebarMenuButton>
+                <SidebarMenuButton className="flex justify-between">
                   <Link
                     href={'/chat/' + chat.id}
                     className=" cursor-pointer transition-all rounded-lg"
                   >
                     {chat.title}
                   </Link>
+                  <ChatOptions chat={chat} />
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
