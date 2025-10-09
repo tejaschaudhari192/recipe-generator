@@ -13,11 +13,10 @@ export const apiClient = axios.create({
   },
 });
 
-export const getServerStatus = async (): Promise<boolean> => {
+export const connectStatus = async (): Promise<boolean> => {
   try {
-    const response = await apiClient.get('/status');
-    // server returns { alive: true }
-    return Boolean(response.data?.alive);
+    const response = await apiClient.get('/health');
+    return response.data.connected;
   } catch (error) {
     console.log(error);
     return false;
@@ -41,7 +40,6 @@ export const getRecipes = async (
 export const getHomePageContent = async () => {
   try {
     const response = await apiClient.get('/home');
-    console.log('hitting');
     return response.data;
   } catch (error) {
     console.log(error);

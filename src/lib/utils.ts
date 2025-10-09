@@ -1,5 +1,4 @@
 import { clsx, type ClassValue } from 'clsx';
-import { useRouter } from 'next/router';
 import { twMerge } from 'tailwind-merge';
 import { configurations } from './configuration';
 

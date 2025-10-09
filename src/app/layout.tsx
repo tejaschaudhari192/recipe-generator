@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from 'sonner';
 import { ThemeProvider } from 'next-themes';
+import { connectStatus } from '@/lib/api';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
   description: 'Created by Tejas Chaudhari',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
