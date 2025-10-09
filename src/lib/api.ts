@@ -128,3 +128,16 @@ export const deletChatWithId = async (id: string) => {
     return null;
   }
 };
+
+export const getTopIngredients = async (): Promise<{
+  topIngredients: string[];
+  topUserIngredients: string[];
+}> => {
+  try {
+    const response = await apiClient.get('/ingredients');
+    return response.data;
+  } catch (error) {
+    console.error('Failed to get top ingredients:', error);
+    return { topIngredients: [], topUserIngredients: [] };
+  }
+};

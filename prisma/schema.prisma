@@ -14,11 +14,12 @@ datasource db {
 }
 
 model User {
-    id       Int    @id @default(autoincrement())
-    name     String
-    email    String @unique
-    password String
-    Chat     Chat[]
+  id       Int          @id @default(autoincrement())
+  name     String
+  email    String       @unique
+  password String
+  Chat     Chat[]
+  Ingredient Ingredient[]
 }
 
 model Chat {
@@ -28,4 +29,14 @@ model Chat {
     recipes     Json[]
     userId      Int
     user        User     @relation(fields: [userId], references: [id])
+}
+
+model Ingredient {
+  id      String   @id @default(cuid())
+  name    String
+  count   Int      @default(1)
+  userId  Int
+  user    User     @relation(fields: [userId], references: [id])
+
+  @@unique([name, userId])
 }
