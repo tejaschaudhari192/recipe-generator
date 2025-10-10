@@ -2,7 +2,7 @@
 
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
-import { Switch } from '@/components/ui/switch';
+import { Switch } from '@ui/switch';
 import { Moon, Sun } from 'lucide-react';
 
 interface ThemeSwitchProps {

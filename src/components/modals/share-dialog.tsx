@@ -5,9 +5,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+} from '@ui/alert-dialog';
+import { Button } from '@ui/button';
+import { Input } from '@ui/input';
 import { useState } from 'react';
 import { Copy } from 'lucide-react'; // Or any icon library you use
 

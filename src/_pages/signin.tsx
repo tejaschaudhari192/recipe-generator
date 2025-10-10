@@ -1,17 +1,17 @@
 'use client';
 
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
+import { cn } from '@lib/utils';
+import { Button } from '@ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
-import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+} from '@ui/card';
+import { Field, FieldGroup, FieldLabel } from '@ui/field';
+import { Input } from '@ui/input';
+import { Alert, AlertTitle, AlertDescription } from '@ui/alert';
 import { AlertCircleIcon, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';

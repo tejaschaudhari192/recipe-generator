@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '@ui/button';
 import { Sparkles, ArrowRight, Clock, CheckCircle } from 'lucide-react';
-import { getHomePageContent } from '@/lib/api';
+import { getHomePageContent } from '@lib/api';
 import Link from 'next/link';
 import Logo from '@/components/logo';
 import ThemeSwitch from '@/components/theme-switch';

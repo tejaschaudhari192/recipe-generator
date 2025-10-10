@@ -4,14 +4,14 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from '@ui/dropdown-menu';
 import { Ellipsis, Share, Trash2 } from 'lucide-react';
-import { useDialogControl } from '@/hooks/useDialogControl';
+import { useDialogControl } from '@hooks/useDialogControl';
 import DeleteAlertDialog from './modals/delete-dialog';
 import ShareLinkDialog from './modals/share-dialog';
 import { Chat } from '@/types';
-import { getUrl } from '@/lib/utils';
-import { deletChatWithId } from '@/lib/api';
+import { getUrl } from '@lib/utils';
+import { deletChatWithId } from '@lib/api';
 
 interface ChatOptionsProps {
   chat: Chat;

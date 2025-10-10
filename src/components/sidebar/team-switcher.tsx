@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import { Utensils } from 'lucide-react';
 
 import {
   SidebarMenu,
@@ -9,9 +8,8 @@ import {
   SidebarMenuItem,
   SidebarTrigger,
   useSidebar,
-} from '@/components/ui/sidebar';
+} from '@ui/sidebar';
 import Logo from '@/components/logo';
-import { cn } from '@/lib/utils';
 import IconHoverToggle from '../icon-toggle';
 
 export function TeamSwitcher() {

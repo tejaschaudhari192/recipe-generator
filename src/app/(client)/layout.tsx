@@ -1,7 +1,7 @@
 'use client'; // This directive marks the file as a client-side component
 
 import { useEffect, useState } from 'react';
-import { connectStatus } from '@/lib/api';
+import { connectStatus } from '@lib/api';
 import { toast } from 'sonner';
 import SplashScreen from '@/components/loaders/splash-screen';
 
@@ -28,5 +28,5 @@ export default function PrivateLayout({
     return <SplashScreen />;
   }
 
-  return <div>{children}</div>;
+  return <div suppressHydrationWarning>{children}</div>;
 }

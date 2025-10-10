@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getChatWithId } from '@/lib/api';
+import { getChatWithId } from '@lib/api';
 import { Recipe } from '@/types';
 import RecipeCard from '@/components/recipe-card';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Card, CardContent, CardHeader, CardTitle } from '@ui/card';
+import { Skeleton } from '@ui/skeleton';
 
 interface ChatClientProps {
   chatId: string;

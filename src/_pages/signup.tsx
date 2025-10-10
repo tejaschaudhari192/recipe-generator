@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@ui/button';
 import {
   Card,
   CardContent,
@@ -8,18 +8,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-} from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
+} from '@ui/card';
+import { Field, FieldDescription, FieldGroup, FieldLabel } from '@ui/field';
+import { Input } from '@ui/input';
 import { useState } from 'react';
-import { signUp } from '@/lib/api';
+import { signUp } from '@lib/api';
 import { useRouter } from 'next/navigation';
-import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertTitle, AlertDescription } from '@ui/alert';
 import { AlertCircleIcon, CheckCircle2, Loader2 } from 'lucide-react';
 
 export default function SignUp() {

@@ -5,11 +5,11 @@ import { signIn, useSession } from 'next-auth/react';
 import { toast } from 'sonner';
 
 import RecipeCard from '@/components/recipe-card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@ui/button';
+import { Input } from '@ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@ui/card';
 
-import { getRecipes, getTopIngredients } from '@/lib/api'; // ✅ Import the new API
+import { getRecipes, getTopIngredients } from '@lib/api'; // ✅ Import the new API
 
 import type { Recipe } from '@/types';
 

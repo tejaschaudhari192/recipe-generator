@@ -1,6 +1,6 @@
 import axios, { isAxiosError } from 'axios';
 import { Ingredients, Recipes } from '@/types';
-import { configurations } from '@/lib/configuration';
+import { configurations } from '@lib/configuration';
 
 export const apiClient = axios.create({
   baseURL:

@@ -1,8 +1,8 @@
-import { configurations } from '@/lib/configuration';
+import { configurations } from '@lib/configuration';
 import { GoogleGenAI } from '@google/genai';
 import { NextRequest, NextResponse } from 'next/server';
 import type { Recipes } from '@/types';
-import prismaClient from '@/lib/prisma';
+import prismaClient from '@lib/prisma';
 import { Prisma } from '@prisma/client';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';

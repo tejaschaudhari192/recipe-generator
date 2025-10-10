@@ -1,5 +1,5 @@
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardHeader, CardTitle, CardContent } from '@ui/card';
+import { Badge } from '@ui/badge';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
 import type { Recipe } from '@/types';
